@@ -2,16 +2,16 @@ name: Docker Image CI
 on:
   push:
     tags:
-      - '*' # Push events to matching v*, i.e. 1.0, 20.15.10
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 jobs:
   docker:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
-      - name: Get the version
-        id: github_ref
+      - name: Variables
+        id: vars
         run: |
-          echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+          echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
         shell: bash
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -30,6 +30,6 @@ jobs:
           platforms: linux/arm/v6,linux/arm/v7,linux/arm64,linux/amd64,linux/386
           tags: |
             dmitter/hello-http-world:latest
-            dmitter/hello-http-world:${{ steps.github_ref.outputs.VERSION }}
+            dmitter/hello-http-world:${{ steps.vars.outputs.tag }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
