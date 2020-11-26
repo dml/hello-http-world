@@ -1,7 +1,7 @@
-FROM arm64v8/golang:alpine3.12 as builder
+FROM golang:alpine3.12 as builder
 COPY main.go .
 RUN go build -o /app main.go
 
-FROM arm64v8/alpine:3.10
+FROM alpine:3.10
 CMD ["./app"]
 COPY --from=builder /app .
