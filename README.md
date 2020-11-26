@@ -3,20 +3,20 @@
 Build
 
 ```sh
-docker build -t rpi-http-server .
+docker build -t hello-http-world .
 ```
 
 Publish
 
 ```sh
-docker tag rpi-http-server:latest dmitter/rpi-http-server:latest
-docker push dmitter/rpi-http-server:latest
+docker tag hello-http-world:latest dmitter/hello-http-world:latest
+docker push dmitter/hello-http-world:latest
 ```
 
 Run
 
 ```sh
-docker run -d --name=rpi-http-server --restart unless-stopped -p 8080:8080 dmitter/rpi-http-server:latest
+docker run -d --name=hello-http-world --restart unless-stopped -p 8080:8080 dmitter/hello-http-world:latest
 ```
 
 Update [more here](https://docs.docker.com/config/containers/start-containers-automatically/)
